@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -10,9 +10,9 @@ import (
 
 func main() {
 	fmt.Println("Welcome to web verb video - LCO")
-	//PerformGetRequest()
+	PerformGetRequest()
 	// PerformPostJsonRequest()
-	PerformPostFormRequest()
+	// PerformPostFormRequest()
 }
 
 func PerformGetRequest() {
@@ -29,7 +29,7 @@ func PerformGetRequest() {
 	fmt.Println("Content length is: ", response.ContentLength)
 
 	var responseString strings.Builder
-	content, _ := ioutil.ReadAll(response.Body)
+	content, _ := io.ReadAll(response.Body)
 	byteCount, _ := responseString.Write(content)
 
 	fmt.Println("ByteCount is: ", byteCount)
@@ -59,7 +59,7 @@ func PerformPostJsonRequest() {
 	}
 	defer response.Body.Close()
 
-	content, _ := ioutil.ReadAll(response.Body)
+	content, _ := io.ReadAll(response.Body)
 
 	fmt.Println(string(content))
 }
@@ -81,7 +81,7 @@ func PerformPostFormRequest() {
 
 	defer response.Body.Close()
 
-	content, _ := ioutil.ReadAll(response.Body)
+	content, _ := io.ReadAll(response.Body)
 	fmt.Println(string(content))
 
 }
